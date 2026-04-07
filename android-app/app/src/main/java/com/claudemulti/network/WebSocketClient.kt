@@ -165,9 +165,10 @@ class WebSocketClient {
      * Returns `true` if the message was enqueued successfully.
      */
     fun send(message: WSMessage): Boolean {
+        val ws = webSocket ?: return false
         val json = ProtocolJson.encodeToString<WSMessage>(message)
         if (BuildConfig.DEBUG) Log.d(TAG, "TX: ${json.take(200)}")
-        return webSocket?.send(json) ?: false
+        return ws.send(json)
     }
 
     /**

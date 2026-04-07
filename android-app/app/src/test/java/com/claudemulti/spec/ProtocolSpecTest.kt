@@ -21,7 +21,7 @@ import org.junit.Test
  * The protocol wire format must match the JSON Schema spec.
  *
  * These tests are the specification. They define what the protocol MUST do,
- * derived from protocol/schema/messages.json and protocol/examples/*.json.
+ * derived from protocol/schema/messages.json and protocol/examples/ *.json.
  * A failing test here means the implementation violates the protocol contract.
  */
 class ProtocolSpecTest {

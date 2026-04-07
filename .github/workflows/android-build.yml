@@ -30,7 +30,7 @@ jobs:
         uses: gradle/actions/setup-gradle@v6
 
       - name: Generate Gradle wrapper
-        run: gradle wrapper --gradle-version 8.9
+        run: gradle wrapper --gradle-version 9.4.1
 
       - name: Build
         run: ./gradlew assembleDebug
