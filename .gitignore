@@ -1,0 +1,28 @@
+# macOS
+.DS_Store
+*.swp
+
+# Xcode
+mac-app/**/build/
+mac-app/**/DerivedData/
+mac-app/**/*.xcuserdata/
+mac-app/**/*.xccheckout
+mac-app/**/*.moved-aside
+mac-app/**/*.hmap
+mac-app/**/*.ipa
+mac-app/**/.build/
+mac-app/**/.swiftpm/
+
+# Android / Gradle
+android-app/.gradle/
+android-app/**/build/
+android-app/local.properties
+android-app/**/*.iml
+android-app/.idea/
+android-app/captures/
+
+# Claude Code
+.claude/
+
+# General
+*.log

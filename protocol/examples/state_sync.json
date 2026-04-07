@@ -1,0 +1,28 @@
+{
+  "type": "state_sync",
+  "version": 1,
+  "sessions": [
+    {
+      "id": "f47ac10b-58cc-4372-a567-0e02b2c3d479",
+      "windowId": 1001,
+      "title": "claude-backend refactor",
+      "bounds": { "x": 0, "y": 0, "width": 960, "height": 1080 },
+      "isSelected": true
+    },
+    {
+      "id": "9b1deb4d-3b7d-4bad-9bdd-2b0d7b3dcb6d",
+      "windowId": 1002,
+      "title": "api-tests runner",
+      "bounds": { "x": 960, "y": 0, "width": 960, "height": 540 },
+      "isSelected": false
+    },
+    {
+      "id": "6ec0bd7f-11c0-43da-975e-2a8ad9ebae0b",
+      "windowId": 1003,
+      "title": "docs update",
+      "bounds": { "x": 960, "y": 540, "width": 960, "height": 540 },
+      "isSelected": false
+    }
+  ],
+  "screenBounds": { "x": 0, "y": 0, "width": 1920, "height": 1080 }
+}

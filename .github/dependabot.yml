@@ -1,0 +1,35 @@
+version: 2
+updates:
+  # GitHub Actions
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+    cooldown:
+      default-days: 7
+
+  # Android (Gradle)
+  - package-ecosystem: "gradle"
+    directory: "/android-app"
+    schedule:
+      interval: "weekly"
+    labels:
+      - "dependencies"
+      - "android"
+    cooldown:
+      default-days: 7
+      semver-major-days: 14
+    open-pull-requests-limit: 10
+
+  # Mac (Swift Package Manager)
+  - package-ecosystem: "swift"
+    directory: "/mac-app"
+    schedule:
+      interval: "weekly"
+    labels:
+      - "dependencies"
+      - "mac"
+    cooldown:
+      default-days: 7
+      semver-major-days: 14
+    open-pull-requests-limit: 10

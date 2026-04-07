@@ -1,0 +1,144 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://claudemulti.local/protocol/messages.json",
+  "title": "ClaudeMulti WebSocket Protocol",
+  "description": "Discriminated union of all WebSocket message types exchanged between the Mac host and Android companion.",
+
+  "$defs": {
+    "Bounds": {
+      "type": "object",
+      "properties": {
+        "x":      { "type": "number" },
+        "y":      { "type": "number" },
+        "width":  { "type": "number" },
+        "height": { "type": "number" }
+      },
+      "required": ["x", "y", "width", "height"],
+      "additionalProperties": false
+    },
+
+    "Session": {
+      "type": "object",
+      "properties": {
+        "id":         { "type": "string", "format": "uuid" },
+        "windowId":   { "type": "number" },
+        "title":      { "type": "string" },
+        "bounds":     { "$ref": "#/$defs/Bounds" },
+        "isSelected": { "type": "boolean" }
+      },
+      "required": ["id", "windowId", "title", "bounds", "isSelected"],
+      "additionalProperties": false
+    },
+
+    "pair": {
+      "type": "object",
+      "description": "Android -> Mac: initiate pairing with a 6-digit code.",
+      "properties": {
+        "type":     { "const": "pair" },
+        "version":  { "const": 1 },
+        "code":     { "type": "string", "pattern": "^[0-9]{6}$" },
+        "deviceId": { "type": "string" }
+      },
+      "required": ["type", "version", "code", "deviceId"],
+      "additionalProperties": false
+    },
+
+    "pair_result": {
+      "type": "object",
+      "description": "Mac -> Android: result of a pairing attempt.",
+      "properties": {
+        "type":    { "const": "pair_result" },
+        "version": { "const": 1 },
+        "success": { "type": "boolean" },
+        "message": { "type": "string" }
+      },
+      "required": ["type", "version", "success"],
+      "additionalProperties": false
+    },
+
+    "state_sync": {
+      "type": "object",
+      "description": "Mac -> Android: full snapshot of all sessions and screen bounds.",
+      "properties": {
+        "type":         { "const": "state_sync" },
+        "version":      { "const": 1 },
+        "sessions":     { "type": "array", "items": { "$ref": "#/$defs/Session" } },
+        "screenBounds": { "$ref": "#/$defs/Bounds" }
+      },
+      "required": ["type", "version", "sessions", "screenBounds"],
+      "additionalProperties": false
+    },
+
+    "selection_changed": {
+      "type": "object",
+      "description": "Mac -> Android: the selected session changed.",
+      "properties": {
+        "type":              { "const": "selection_changed" },
+        "version":           { "const": 1 },
+        "selectedSessionId": { "type": "string", "format": "uuid" }
+      },
+      "required": ["type", "version", "selectedSessionId"],
+      "additionalProperties": false
+    },
+
+    "cycle_selection": {
+      "type": "object",
+      "description": "Android -> Mac: cycle the active session forward or backward.",
+      "properties": {
+        "type":      { "const": "cycle_selection" },
+        "version":   { "const": 1 },
+        "direction": { "type": "string", "enum": ["next", "prev"] }
+      },
+      "required": ["type", "version", "direction"],
+      "additionalProperties": false
+    },
+
+    "send_text": {
+      "type": "object",
+      "description": "Android -> Mac: send text input to a session.",
+      "properties": {
+        "type":       { "const": "send_text" },
+        "version":    { "const": 1 },
+        "text":       { "type": "string" },
+        "sessionId":  { "type": "string", "format": "uuid" },
+        "pressEnter": { "type": "boolean" }
+      },
+      "required": ["type", "version", "text", "pressEnter"],
+      "additionalProperties": false
+    },
+
+    "request_sync": {
+      "type": "object",
+      "description": "Android -> Mac: ask the Mac to send a fresh state_sync.",
+      "properties": {
+        "type":    { "const": "request_sync" },
+        "version": { "const": 1 }
+      },
+      "required": ["type", "version"],
+      "additionalProperties": false
+    },
+
+    "error": {
+      "type": "object",
+      "description": "Mac -> Android: report an error condition.",
+      "properties": {
+        "type":    { "const": "error" },
+        "version": { "const": 1 },
+        "message": { "type": "string" }
+      },
+      "required": ["type", "version", "message"],
+      "additionalProperties": false
+    }
+  },
+
+  "oneOf": [
+    { "$ref": "#/$defs/pair" },
+    { "$ref": "#/$defs/pair_result" },
+    { "$ref": "#/$defs/state_sync" },
+    { "$ref": "#/$defs/selection_changed" },
+    { "$ref": "#/$defs/cycle_selection" },
+    { "$ref": "#/$defs/send_text" },
+    { "$ref": "#/$defs/request_sync" },
+    { "$ref": "#/$defs/error" }
+  ]
+}
