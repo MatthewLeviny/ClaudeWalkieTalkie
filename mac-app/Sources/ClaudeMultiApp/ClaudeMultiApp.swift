@@ -4,6 +4,7 @@ import AppKit
 import ClaudeMultiLib
 
 @main
+@MainActor
 struct ClaudeMultiApp: App {
     @State private var server = WebSocketServer()
     @State private var discovery = SessionDiscovery()
