@@ -2,14 +2,13 @@ name: Mac Build
 
 on:
   push:
+    branches: [main]
     paths:
       - 'mac-app/**'
-      - 'protocol/**'
       - '.github/workflows/mac-build.yml'
   pull_request:
     paths:
       - 'mac-app/**'
-      - 'protocol/**'
       - '.github/workflows/mac-build.yml'
 
 jobs:
@@ -19,7 +18,7 @@ jobs:
       run:
         working-directory: mac-app
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
 
       - name: Build (debug)
         run: swift build
