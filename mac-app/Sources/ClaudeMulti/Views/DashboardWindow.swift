@@ -3,6 +3,7 @@ import CoreGraphics
 
 /// The main dashboard window showing session management, layout controls,
 /// connection info, and the window map preview.
+@MainActor
 public struct DashboardWindow: View {
     @Environment(WebSocketServer.self) var server
     @Environment(SessionDiscovery.self) var discovery

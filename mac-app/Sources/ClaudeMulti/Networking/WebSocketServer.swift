@@ -125,14 +125,16 @@ public final class WebSocketServer {
             )
 
             newListener.stateUpdateHandler = { [weak self] state in
+                guard let self else { return }
                 DispatchQueue.main.async {
-                    self?.handleListenerState(state)
+                    self.handleListenerState(state)
                 }
             }
 
             newListener.newConnectionHandler = { [weak self] connection in
+                guard let self else { return }
                 DispatchQueue.main.async {
-                    self?.handleNewConnection(connection)
+                    self.handleNewConnection(connection)
                 }
             }
 
@@ -275,8 +277,9 @@ public final class WebSocketServer {
         connectedClients = connections.count
 
         connection.stateUpdateHandler = { [weak self] state in
+            guard let self else { return }
             DispatchQueue.main.async {
-                self?.handleConnectionState(state, connection: connection)
+                self.handleConnectionState(state, connection: connection)
             }
         }
 
@@ -311,8 +314,8 @@ public final class WebSocketServer {
 
     private func receiveMessage(on connection: NWConnection) {
         connection.receiveMessage { [weak self] content, context, isComplete, error in
+            guard let self else { return }
             DispatchQueue.main.async {
-                guard let self = self else { return }
 
                 if let error = error {
                     Self.logger.error("Receive error: \(error)")
