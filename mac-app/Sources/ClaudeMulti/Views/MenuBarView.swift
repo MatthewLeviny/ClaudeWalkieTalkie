@@ -2,6 +2,7 @@ import SwiftUI
 import AppKit
 
 /// The content view shown in the menu bar dropdown.
+@MainActor
 public struct MenuBarView: View {
     @Environment(WebSocketServer.self) var server
     @Environment(SessionDiscovery.self) var discovery
