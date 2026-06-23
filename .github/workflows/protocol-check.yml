@@ -15,7 +15,7 @@ jobs:
   validate:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v6.0.3
 
       - name: Validate JSON Schema
         run: python3 -c "import json; json.load(open('protocol/schema/messages.json'))"
